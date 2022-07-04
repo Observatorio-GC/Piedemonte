@@ -138,6 +138,10 @@
 	<script type="text/javascript" src="scripts/Garita.js"></script>
 	<script type="text/javascript" src="scripts/Puestos.js"></script>
 	<script type="text/javascript" src="scripts/Carteleria.js"></script>
+	<script type="text/javascript" src="scripts/Sendero1.js"></script>
+	<script type="text/javascript" src="scripts/Sendero2.js"></script>
+	<script type="text/javascript" src="scripts/Sendero3.js"></script>
+	<script type="text/javascript" src="scripts/TrancasIgnacio.js"></script>
 
 
 
@@ -444,6 +448,12 @@
 
 
 		/* POPUPS */
+
+		function agregarPopupCircuitos(feature, layer) {
+			if (feature.properties && feature.properties.Nombre) {
+				layer.bindPopup("<strong>" + feature.properties.Nombre + "</strong><br/>" + feature.properties.Distancia + "</strong><br/>");
+			}
+		}
 
 		function agregarPopupPaneles(feature, layer) {
 			if (feature.properties && feature.properties.descriptio) {
@@ -831,7 +841,7 @@
 		
 		/* BASE LAYERS */
 		var esriUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-		    esriAttrib = ' Powered by &copy;  <a href="https://www.esri.com/en-us/home">ESRI</a>',
+		    esriAttrib = 'Powered by &copy; <a  href="https://www.esri.com/en-us/home">  ESRI</a>',
 			mapabase_esri = L.tileLayer(esriUrl,{ maxZoom: 20, attribution: esriAttrib });
 
 		var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -849,9 +859,12 @@
 			cirCap = L.geoJson(CircuitoCapital, { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "orange" }),
 			cirLuj = L.geoJson(CircuitoLujan, { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "yellow" }),
 			cirEsc = L.geoJson(CircuitoEscuela, { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "red" }),
-			cirCie = L.geoJson(CieneguitaTrancas, { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "#15ff44" }),
+			cirCie = L.geoJson(CieneguitaTrancas, { onEachFeature: agregarPopupCircuitos }).setStyle({ color: "#15ff44" }),
 			sendCorto = L.geoJson(SenderoCorto, { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "#df5fff" }),
 			sendLargo = L.geoJson(SenderoLargo, { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "#19f4ff" }),
+			send1 = L.geoJson(Sendero1, { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "green" }),
+			send2 = L.geoJson(Sendero2, { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "red" }),
+			send3 = L.geoJson(Sendero3, { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "violet" }),
 			puestos = L.geoJson(Puestos, { pointToLayer: crearIconoAmarillo, onEachFeature: agregarPopupfarmacias }),
 			garita = L.geoJson(Garita, { pointToLayer: crearIconoVerde, onEachFeature: agregarPopupfarmacias }),
 			sombra = L.geoJson(SegundoSombra,  { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "white" }),
@@ -864,6 +877,7 @@
 			zonaurb = L.geoJson(ZonaUrbana, { onEachFeature: agregarPopupPiedemonte }).setStyle({ color: "#e2e21a", fillOpacity: 0.75 }),
 			limiurb = L.geoJson(LimiteUrbano, { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "red" }),
 			fall = L.geoJson(Fallas, { onEachFeature: agregarPopupfallas }).setStyle({ color: "orange" }),
+			circuitoIgnacio = L.geoJson(TrancasIgnacio, {onEachFeature: agregarPopupCircuitos }).setStyle({ color: "yellow" }),
 			hidrico = L.geoJson(RedHidrica, { onEachFeature: agregarPopup }).setStyle({ color: "#15c8f0" });
 			
 		
@@ -899,19 +913,23 @@
 			},
 			"Piedemonte": {
 			    "Calle Segundo Sombra":sombra,
-				"Cartelería": cartel,
-				"Circuito Conexión a Capital":cirCap,
-			    "Circuito Conexión a Luján de Cuyo":cirLuj,
-			    "Circuito para Escuelas (Estancia Punta del Agua)":cirEsc,
+				"Cartelería (Sendero Geológico)": cartel,
+				"Propuesta Circuito Conexión a Capital":cirCap,
+			    "Propuesta Circuito Conexión a Luján de Cuyo":cirLuj,
+			    "Propuesta Circuito para Escuelas (Estancia Punta del Agua)":cirEsc,
 			    "Circuito Cieneguita - Las Trancas":cirCie,
+				"Circuito Trekking Las Trancas - Chambon": circuitoIgnacio,
+				"Sendero La Cieneguita 1":send1,
+				"Sendero La Cieneguita 2":send2,
+				"Sendero Las Trancas 3":send3,
+				"Sendero Turístico - Geológico": sendGeo,
+			    //"Propuesta Sendero Corto (Cieneguita-Punta del Agua-Garelli)":sendCorto,
+			    //"Propuesta Sendero Largo (Cieneguita-LasTrancas-Punta del Agua-Garelli)":sendLargo,
 				"Fallas Geológicas": fall,
 				"Garita de Seguridad":garita,
 				"Límite Urbano": limiurb,
 				"Puestos":puestos,
 				"Red Hidríca": hidrico,
-				"Sendero Turístico - Geológico": sendGeo,
-			    "Sendero Corto (Cieneguita-Punta del Agua-Garelli)":sendCorto,
-			    "Sendero Largo (Cieneguita-LasTrancas-Punta del Agua-Garelli)":sendLargo,
 				"Zona con Características Especiales de Urbanización": zonaurb,
 				"Zona Especial de Conservacion Natural": zonatu,
 				"Zona Ley Piedemonte 4886": zonaley,
