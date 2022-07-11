@@ -143,6 +143,12 @@
 	<script type="text/javascript" src="scripts/Sendero3.js"></script>
 	<script type="text/javascript" src="scripts/TrancasIgnacio.js"></script>
 
+	<script type="text/javascript" src="scripts/Externo.js"></script>
+	<script type="text/javascript" src="scripts/Interno.js"></script>
+	<script type="text/javascript" src="scripts/Urbana.js"></script>
+
+	<script type="text/javascript" src="scripts/Control.js"></script>
+	<script type="text/javascript" src="scripts/Ingreso.js"></script>
 
 
 </head>
@@ -878,6 +884,11 @@
 			limiurb = L.geoJson(LimiteUrbano, { onEachFeature: agregarPopupfarmacias }).setStyle({ color: "red" }),
 			fall = L.geoJson(Fallas, { onEachFeature: agregarPopupfallas }).setStyle({ color: "orange" }),
 			circuitoIgnacio = L.geoJson(TrancasIgnacio, {onEachFeature: agregarPopupCircuitos }).setStyle({ color: "yellow" }),
+			ext = L.geoJson(Externo, { onEachFeature: agregarPopupfallas }).setStyle({ color: "#32e535" }),
+			int = L.geoJson(Interno, { onEachFeature: agregarPopupfallas }).setStyle({ color: "orange" }),
+			urb = L.geoJson(Urbana, { onEachFeature: agregarPopupfallas }).setStyle({ color: "red" }),
+			control = L.geoJson(Control, { pointToLayer: crearIconoNegro, onEachFeature: agregarPopupfarmacias }),
+			ingreso = L.geoJson(Ingreso, { pointToLayer: crearIconoNaranja, onEachFeature: agregarPopupfarmacias }),
 			hidrico = L.geoJson(RedHidrica, { onEachFeature: agregarPopup }).setStyle({ color: "#15c8f0" });
 			
 		
@@ -919,6 +930,7 @@
 			    "Propuesta Circuito para Escuelas (Estancia Punta del Agua)":cirEsc,
 			    "Circuito Cieneguita - Las Trancas":cirCie,
 				"Circuito Trekking Las Trancas - Chambon": circuitoIgnacio,
+				"Control Policial": control,
 				"Sendero La Cieneguita 1":send1,
 				"Sendero La Cieneguita 2":send2,
 				"Sendero Las Trancas 3":send3,
@@ -926,12 +938,13 @@
 			    //"Propuesta Sendero Corto (Cieneguita-Punta del Agua-Garelli)":sendCorto,
 			    //"Propuesta Sendero Largo (Cieneguita-LasTrancas-Punta del Agua-Garelli)":sendLargo,
 				"Fallas Geológicas": fall,
-				"Garita de Seguridad":garita,
+				"Ingreso Zona Especial de Conservación Natural Municipal": ingreso,
 				"Límite Urbano": limiurb,
 				"Puestos":puestos,
 				"Red Hidríca": hidrico,
-				"Zona con Características Especiales de Urbanización": zonaurb,
-				"Zona Especial de Conservacion Natural": zonatu,
+				"Zona Especial de Conservación Natural - Amortiguación Externa": ext,  
+			    "Zona Especial de Conservación Natural - Amortiguación Interna": int,  
+			    "Zona con Características Especiales de Urbanización": urb, 
 				"Zona Ley Piedemonte 4886": zonaley,
 		
 			},
